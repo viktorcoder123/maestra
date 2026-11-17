@@ -1,0 +1,244 @@
+{
+  "pedagogos": [
+    {
+      "id": "dalcroze",
+      "nombre": "Émile Jaques-Dalcroze",
+      "pais": "Suiza",
+      "anios": "1865-1950",
+      "metodo": "Rítmica Dalcroze",
+      "principios": [
+        "El cuerpo como primer instrumento",
+        "La música se vive antes de aprenderse",
+        "Tres pilares: euritmia, solfeo y la improvisación"
+      ],
+      "palabras_clave": ["euritmia", "movimiento corporal", "improvisación al piano"],
+      "citas": [
+        "La música se aprende moviendo el cuerpo",
+        "El ritmo es movimiento organizado"
+      ],
+      "aparece_en_temas": [6, 7]
+    },
+    {
+      "id": "kodaly",
+      "nombre": "Zoltán Kodály",
+      "pais": "Hungría",
+      "anios": "1882-1967",
+      "metodo": "Método Kodály",
+      "principios": [
+        "La voz es el instrumento universal",
+        "La música folclórica como material pedagógico",
+        "Solfa relativa (do móvil) y fononimia",
+        "Sílabas rítmicas (ta, ti-ti)"
+      ],
+      "palabras_clave": ["solfa relativa", "do móvil", "fononimia", "canto coral", "folclore"],
+      "citas": [
+        "La música pertenece a todos",
+        "La música ha de ser para todos"
+      ],
+      "aparece_en_temas": [7]
+    },
+    {
+      "id": "orff",
+      "nombre": "Carl Orff",
+      "pais": "Alemania",
+      "anios": "1895-1982",
+      "metodo": "Orff-Schulwerk",
+      "principios": [
+        "Palabra, música y movimiento como unidad",
+        "Instrumental Orff (xilófonos, metalófonos, carillones)",
+        "Ostinato rítmico y melódico",
+        "Improvisación como motor del aprendizaje"
+      ],
+      "palabras_clave": ["instrumental Orff", "ostinato", "palabra-ritmo-movimiento", "improvisación"],
+      "citas": [
+        "La música elemental nunca es sola música"
+      ],
+      "aparece_en_temas": [6, 7]
+    },
+    {
+      "id": "willems",
+      "nombre": "Edgar Willems",
+      "pais": "Bélgica/Suiza",
+      "anios": "1890-1978",
+      "metodo": "Educación Musical Willems",
+      "principios": [
+        "Analogía entre música y naturaleza humana",
+        "Ritmo = vida fisiológica; melodía = vida afectiva; armonía = vida mental",
+        "Audición como base de todo aprendizaje musical"
+      ],
+      "palabras_clave": ["audición activa", "canciones por intervalos", "psicología del oído"],
+      "citas": [],
+      "aparece_en_temas": [7]
+    },
+    {
+      "id": "martenot",
+      "nombre": "Maurice Martenot",
+      "pais": "Francia",
+      "anios": "1898-1980",
+      "metodo": "Método Martenot",
+      "principios": [
+        "Alegría y relajación como principios pedagógicos",
+        "Desarrollo del sentido rítmico independiente del melódico",
+        "Educación del silencio y la escucha interior"
+      ],
+      "palabras_clave": ["relajación", "silencio interior", "ondas Martenot"],
+      "citas": [],
+      "aparece_en_temas": [7]
+    },
+    {
+      "id": "ward",
+      "nombre": "Justine Bayard Ward",
+      "pais": "Estados Unidos",
+      "anios": "1879-1975",
+      "metodo": "Método Ward",
+      "principios": [
+        "Formación vocal desde la infancia",
+        "Canto gregoriano como base",
+        "Números para designar las notas de la escala"
+      ],
+      "palabras_clave": ["canto gregoriano", "educación vocal", "numeración de notas"],
+      "citas": [],
+      "aparece_en_temas": [7]
+    },
+    {
+      "id": "suzuki",
+      "nombre": "Shinichi Suzuki",
+      "pais": "Japón",
+      "anios": "1898-1998",
+      "metodo": "Método Suzuki / Educación del Talento",
+      "principios": [
+        "Aprender música como se aprende la lengua materna",
+        "Iniciación muy temprana (3-4 años)",
+        "Implicación activa de los padres",
+        "Imitación auditiva antes que lectura"
+      ],
+      "palabras_clave": ["lengua materna", "iniciación temprana", "educación del talento"],
+      "citas": [
+        "El talento no se hereda, se educa"
+      ],
+      "aparece_en_temas": [7]
+    },
+    {
+      "id": "elizalde",
+      "nombre": "Luis Elizalde",
+      "pais": "España",
+      "anios": "1934-2014",
+      "metodo": "Método Elizalde",
+      "principios": [
+        "Adaptación del método Ward al contexto español",
+        "Educación vocal y coral como eje",
+        "Cancionero infantil español"
+      ],
+      "palabras_clave": ["coral", "cancionero español", "educación vocal"],
+      "citas": [],
+      "aparece_en_temas": [7]
+    },
+    {
+      "id": "montessori",
+      "nombre": "María Montessori",
+      "pais": "Italia",
+      "anios": "1870-1952",
+      "metodo": "Pedagogía Montessori (aplicada a la música)",
+      "principios": [
+        "Educación sensorial y manipulativa",
+        "Periodos sensibles del desarrollo infantil",
+        "Materiales autocorrectivos (campanillas Montessori)"
+      ],
+      "palabras_clave": ["campanillas", "sensorial", "autonomía", "periodos sensibles"],
+      "citas": [],
+      "aparece_en_temas": [7]
+    },
+    {
+      "id": "chevais",
+      "nombre": "Maurice Chevais",
+      "pais": "Francia",
+      "anios": "1880-1943",
+      "metodo": "Método Chevais",
+      "principios": [
+        "Educación vocal como centro",
+        "Dactilorritmia (gestos con las manos para el ritmo)",
+        "Enseñanza progresiva del solfeo"
+      ],
+      "palabras_clave": ["dactilorritmia", "educación vocal", "solfeo progresivo"],
+      "citas": [],
+      "aparece_en_temas": [7]
+    },
+    {
+      "id": "schafer",
+      "nombre": "R. Murray Schafer",
+      "pais": "Canadá",
+      "anios": "1933-2021",
+      "metodo": "Pedagogía del paisaje sonoro",
+      "principios": [
+        "Educación del oído por el entorno sonoro",
+        "Paisaje sonoro (soundscape) como recurso",
+        "Composición creativa y escucha ecológica"
+      ],
+      "palabras_clave": ["paisaje sonoro", "soundscape", "ecología acústica", "escucha creativa"],
+      "citas": [
+        "Limpieza de oídos: primera tarea del educador musical"
+      ],
+      "aparece_en_temas": [7]
+    },
+    {
+      "id": "wuytack",
+      "nombre": "Jos Wuytack",
+      "pais": "Bélgica",
+      "anios": "1935-",
+      "metodo": "Método Wuytack / Musicograma",
+      "principios": [
+        "Audición musical activa a través del musicograma",
+        "Continuador de Orff",
+        "Participación corporal en la escucha"
+      ],
+      "palabras_clave": ["musicograma", "audición activa", "Orff ampliado"],
+      "citas": [],
+      "aparece_en_temas": [7]
+    },
+    {
+      "id": "aschero",
+      "nombre": "Sergio Aschero",
+      "pais": "Argentina",
+      "anios": "1945-",
+      "metodo": "Numerofonía",
+      "principios": [
+        "Sistema notacional alternativo con números y colores",
+        "Acceso universal a la música escrita",
+        "Simplificación visual del lenguaje musical"
+      ],
+      "palabras_clave": ["numerofonía", "colores", "notación alternativa"],
+      "citas": [],
+      "aparece_en_temas": [7]
+    },
+    {
+      "id": "bapne",
+      "nombre": "Francisco Javier Romero Naranjo (Método BAPNE)",
+      "pais": "España",
+      "anios": "1973-",
+      "metodo": "BAPNE (Biomecánica, Anatomía, Psicología, Neurociencia, Etnomusicología)",
+      "principios": [
+        "Percusión corporal como herramienta de desarrollo cognitivo",
+        "Fundamento neurocientífico",
+        "Trabajo de lateralidad y atención"
+      ],
+      "palabras_clave": ["percusión corporal", "neurociencia", "lateralidad", "atención"],
+      "citas": [],
+      "aparece_en_temas": [6, 7]
+    },
+    {
+      "id": "hemsy",
+      "nombre": "Violeta Hemsy de Gainza",
+      "pais": "Argentina",
+      "anios": "1929-2023",
+      "metodo": "Pedagogía musical contemporánea",
+      "principios": [
+        "Música y movimiento integrados",
+        "Perspectiva latinoamericana de los métodos del s.XX",
+        "Improvisación como herramienta didáctica"
+      ],
+      "palabras_clave": ["improvisación", "movimiento", "pedagogía latinoamericana"],
+      "citas": [],
+      "aparece_en_temas": [6]
+    }
+  ]
+}

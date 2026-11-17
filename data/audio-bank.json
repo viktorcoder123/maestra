@@ -1,0 +1,88 @@
+{
+  "intervalos": [
+    { "id": "2mp",  "nombre": "Segunda menor",   "semitonos": 1,  "ejemplo": "Tiburón (Jaws)" },
+    { "id": "2M",   "nombre": "Segunda mayor",   "semitonos": 2,  "ejemplo": "Feliz cumpleaños" },
+    { "id": "3m",   "nombre": "Tercera menor",   "semitonos": 3,  "ejemplo": "Greensleeves" },
+    { "id": "3M",   "nombre": "Tercera mayor",   "semitonos": 4,  "ejemplo": "Oh when the Saints" },
+    { "id": "4J",   "nombre": "Cuarta justa",    "semitonos": 5,  "ejemplo": "La Marsellesa" },
+    { "id": "T",    "nombre": "Tritono",         "semitonos": 6,  "ejemplo": "Los Simpson" },
+    { "id": "5J",   "nombre": "Quinta justa",    "semitonos": 7,  "ejemplo": "Twinkle, Twinkle" },
+    { "id": "6m",   "nombre": "Sexta menor",     "semitonos": 8,  "ejemplo": "The Entertainer" },
+    { "id": "6M",   "nombre": "Sexta mayor",     "semitonos": 9,  "ejemplo": "My Bonnie" },
+    { "id": "7m",   "nombre": "Séptima menor",   "semitonos": 10, "ejemplo": "Somewhere (West Side Story)" },
+    { "id": "7M",   "nombre": "Séptima mayor",   "semitonos": 11, "ejemplo": "Take On Me" },
+    { "id": "8J",   "nombre": "Octava justa",    "semitonos": 12, "ejemplo": "Somewhere Over the Rainbow" }
+  ],
+  "modos": [
+    { "id": "mayor",  "nombre": "Modo mayor",          "intervalos": [0,2,4,5,7,9,11,12] },
+    { "id": "menor_n","nombre": "Modo menor natural",  "intervalos": [0,2,3,5,7,8,10,12] },
+    { "id": "menor_a","nombre": "Modo menor armónico", "intervalos": [0,2,3,5,7,8,11,12] },
+    { "id": "menor_m","nombre": "Modo menor melódico (asc.)", "intervalos": [0,2,3,5,7,9,11,12] },
+    { "id": "dorico", "nombre": "Dórico",              "intervalos": [0,2,3,5,7,9,10,12] },
+    { "id": "frigio", "nombre": "Frigio",              "intervalos": [0,1,3,5,7,8,10,12] },
+    { "id": "lidio",  "nombre": "Lidio",               "intervalos": [0,2,4,6,7,9,11,12] },
+    { "id": "mixolidio","nombre": "Mixolidio",         "intervalos": [0,2,4,5,7,9,10,12] },
+    { "id": "pentatonicaM","nombre": "Pentatónica mayor", "intervalos": [0,2,4,7,9,12] },
+    { "id": "pentatonicam","nombre": "Pentatónica menor", "intervalos": [0,3,5,7,10,12] }
+  ],
+  "texturas": [
+    {
+      "id": "monodia",
+      "nombre": "Monodia / Monofonía",
+      "definicion": "Una sola línea melódica, sin acompañamiento. Ej.: canto gregoriano.",
+      "voces": [{ "pattern": "melody", "notes": [60,62,64,65,67,65,64,62] }]
+    },
+    {
+      "id": "homofonia",
+      "nombre": "Homofonía",
+      "definicion": "Melodía principal con acompañamiento armónico subordinado; todas las voces se mueven con ritmo similar.",
+      "voces": [
+        { "pattern": "melody", "notes": [72,74,76,77,79] },
+        { "pattern": "chords", "notes": [[48,52,55],[50,53,57],[52,55,59],[53,57,60],[55,59,62]] }
+      ]
+    },
+    {
+      "id": "polifonia",
+      "nombre": "Polifonía / Contrapunto",
+      "definicion": "Varias líneas melódicas independientes que suenan simultáneamente (p. ej., fuga).",
+      "voces": [
+        { "pattern": "melody", "notes": [60,62,64,65,67,65,64,62] },
+        { "pattern": "melody", "notes": [64,65,67,69,71,69,67,65], "delay": 0.5 }
+      ]
+    },
+    {
+      "id": "melodia_acomp",
+      "nombre": "Melodía acompañada",
+      "definicion": "Una voz lleva la melodía mientras otras realizan acompañamiento (p. ej., Lied, canción con guitarra).",
+      "voces": [
+        { "pattern": "melody", "notes": [67,69,71,72,74,72,71,69] },
+        { "pattern": "arpeggio", "notes": [48,52,55,60] }
+      ]
+    }
+  ],
+  "formas": [
+    { "id": "aaba",    "nombre": "AABA",        "descripcion": "Dos secciones A, un puente B, retorno a A. Típica en jazz y canción popular." },
+    { "id": "ab",      "nombre": "Binaria (AB)","descripcion": "Dos secciones contrastantes." },
+    { "id": "aba",     "nombre": "Ternaria (ABA)","descripcion": "Exposición, contraste y retorno. Base de muchas formas clásicas." },
+    { "id": "rondo",   "nombre": "Rondó (ABACA…)", "descripcion": "Un tema principal (A) alterna con episodios contrastantes." },
+    { "id": "lied",    "nombre": "Lied",        "descripcion": "Canción culta para voz y piano, generalmente binaria o ternaria." },
+    { "id": "tema_variac", "nombre": "Tema con variaciones", "descripcion": "Un tema principal se repite con alteraciones." },
+    { "id": "sonata",  "nombre": "Forma sonata","descripcion": "Exposición (dos temas contrastantes) — desarrollo — reexposición." },
+    { "id": "fuga",    "nombre": "Fuga",        "descripcion": "Forma contrapuntística basada en la imitación de un sujeto." },
+    { "id": "canon",   "nombre": "Canon",       "descripcion": "Imitación estricta entre voces, cada una entra a distancia." }
+  ],
+  "normativa": [
+    {
+      "id": "lomloe",
+      "nombre": "LOMLOE",
+      "full": "Ley Orgánica 3/2020, de 29 de diciembre, por la que se modifica la LOE",
+      "contexto": "Marco educativo vigente en España. Introduce competencias clave y situaciones de aprendizaje."
+    },
+    {
+      "id": "rd157_2022",
+      "nombre": "Real Decreto 157/2022",
+      "full": "RD 157/2022, de 1 de marzo, por el que se establecen la ordenación y las enseñanzas mínimas de la Educación Primaria",
+      "contexto": "Define currículo mínimo de Primaria tras la LOMLOE — incluye Educación Artística (Música y Plástica)."
+    }
+  ]
+}
