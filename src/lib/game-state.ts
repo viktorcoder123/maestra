@@ -13,16 +13,16 @@ export type Achievement = {
 };
 
 export const ACHIEVEMENTS: Achievement[] = [
-  { id: 'first_blood',   name: 'Primera sangre',        desc: 'Primer acierto en un juego.',       icon: '🎯', threshold: 1 },
-  { id: 'combo_5',       name: 'En racha',               desc: 'Cadena de 5 aciertos seguidos.',    icon: '🔥', threshold: 5 },
-  { id: 'combo_10',      name: 'Imparable',              desc: 'Cadena de 10 aciertos seguidos.',  icon: '⚡', threshold: 10 },
-  { id: 'xp_100',        name: 'Centenaria',             desc: '100 XP acumulados.',                icon: '💯', threshold: 100 },
-  { id: 'xp_500',        name: 'Media maratón',          desc: '500 XP acumulados.',                icon: '🏃‍♀️', threshold: 500 },
-  { id: 'xp_1000',       name: 'Maratonista',            desc: '1000 XP acumulados.',               icon: '🏆', threshold: 1000 },
-  { id: 'survivor',      name: 'Superviviente',          desc: 'Supera 10 rondas en Royale.',      icon: '👑', threshold: 10 },
-  { id: 'pentagrama',    name: 'Dictado perfecto',       desc: 'Dictado de 7 notas sin fallos.',   icon: '🎼', threshold: 7 },
-  { id: 'cartografa',    name: 'Cartógrafa',             desc: '15 países acertados en el mapa.',   icon: '🗺️', threshold: 15 },
-  { id: 'cronista',      name: 'Cronista del siglo XX',  desc: 'Línea del tiempo completada.',      icon: '📜', threshold: 14 },
+  { id: 'first_blood',   name: 'Primera sangre',        desc: 'Primer acierto en un juego.',       icon: '',  threshold: 1 },
+  { id: 'combo_5',       name: 'En racha',               desc: 'Cadena de 5 aciertos seguidos.',    icon: '',  threshold: 5 },
+  { id: 'combo_10',      name: 'Imparable',              desc: 'Cadena de 10 aciertos seguidos.',  icon: '',  threshold: 10 },
+  { id: 'xp_100',        name: 'Centenaria',             desc: '100 XP acumulados.',                icon: '',  threshold: 100 },
+  { id: 'xp_500',        name: 'Media maratón',          desc: '500 XP acumulados.',                icon: '',  threshold: 500 },
+  { id: 'xp_1000',       name: 'Maratonista',            desc: '1000 XP acumulados.',               icon: '',  threshold: 1000 },
+  { id: 'survivor',      name: 'Superviviente',          desc: 'Supera 10 rondas en Royale.',      icon: '',  threshold: 10 },
+  { id: 'pentagrama',    name: 'Dictado perfecto',       desc: 'Dictado de 7 notas sin fallos.',   icon: '',  threshold: 7 },
+  { id: 'cartografa',    name: 'Cartógrafa',             desc: '15 países acertados en el mapa.',   icon: '',  threshold: 15 },
+  { id: 'cronista',      name: 'Cronista del siglo XX',  desc: 'Línea del tiempo completada.',      icon: '',  threshold: 14 },
 ];
 
 export type GameState = {
@@ -48,10 +48,10 @@ export function load(): GameState {
   } catch { return empty(); }
 }
 
-export function save(s: GameState) {
+export function save(s: GameState, detail?: Record<string, unknown>) {
   if (typeof window === 'undefined') return;
   localStorage.setItem(KEY, JSON.stringify(s));
-  window.dispatchEvent(new Event('maestra:gamestate'));
+  window.dispatchEvent(new CustomEvent('maestra:gamestate', { detail }));
 }
 
 export function level(xp: number): { level: number; progress: number; next: number } {
@@ -120,9 +120,10 @@ export function registerAnswer(
     if (unlocked) { s.achievements.push(a.id); newAchievements.push(a); }
   }
 
-  save(s);
   const newLevel = level(s.xp).level;
-  return { xpGained: gained, newCombo, levelUp: newLevel > prevLevel, newAchievements };
+  const result: RewardResult = { xpGained: gained, newCombo, levelUp: newLevel > prevLevel, newAchievements };
+  save(s, { xpGained: gained, combo: newCombo, levelUp: result.levelUp, game });
+  return result;
 }
 
 /** Increment a named counter (e.g. royale_rounds, dictado_perfect) and unlock

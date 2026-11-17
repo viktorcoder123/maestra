@@ -1,5 +1,5 @@
 'use client';
-import { useState, useMemo } from 'react';
+import { useMemo, useState } from 'react';
 import type { Section, SectionNode } from '@/lib/types';
 
 function buildTree(sections: Section[]): SectionNode[] {
@@ -8,84 +8,49 @@ function buildTree(sections: Section[]): SectionNode[] {
   const roots: SectionNode[] = [];
   for (const s of sections) {
     const n = map.get(s.id)!;
-    if (s.parent_id && map.has(s.parent_id)) {
-      map.get(s.parent_id)!.children.push(n);
-    } else {
-      roots.push(n);
-    }
+    if (s.parent_id && map.has(s.parent_id)) map.get(s.parent_id)!.children.push(n);
+    else roots.push(n);
   }
   return roots;
 }
 
 export function SectionTree({ sections }: { sections: Section[] }) {
   const tree = useMemo(() => buildTree(sections), [sections]);
-  const [expandAll, setExpandAll] = useState(false);
-  const [contentOn, setContentOn] = useState(true);
+  const [open, setOpen] = useState<Record<number, boolean>>({});
+  const toggle = (id: number) => setOpen((o) => ({ ...o, [id]: !o[id] }));
 
   return (
-    <div>
-      <div className="flex items-center gap-2 mb-4 text-sm">
-        <button
-          onClick={() => setExpandAll((x) => !x)}
-          className="px-3 py-1.5 rounded-full border hover:border-brand-400"
-        >
-          {expandAll ? 'Plegar todo' : 'Desplegar todo'}
-        </button>
-        <button
-          onClick={() => setContentOn((x) => !x)}
-          className="px-3 py-1.5 rounded-full border hover:border-brand-400"
-        >
-          {contentOn ? 'Ocultar contenido' : 'Mostrar contenido'}
-        </button>
-      </div>
-      <div className="border-l-2 border-ink-200 pl-4 space-y-1">
-        {tree.map((n) => (
-          <Node key={n.id} node={n} depth={0} expandAll={expandAll} contentOn={contentOn} />
-        ))}
-      </div>
-    </div>
-  );
-}
-
-function Node({
-  node,
-  depth,
-  expandAll,
-  contentOn,
-}: {
-  node: SectionNode;
-  depth: number;
-  expandAll: boolean;
-  contentOn: boolean;
-}) {
-  const [open, setOpen] = useState(depth < 1);
-  const hasChildren = node.children.length > 0;
-  const effectivelyOpen = expandAll || open;
-
-  return (
-    <div className="pop-in">
-      <button
-        onClick={() => setOpen((o) => !o)}
-        className="w-full text-left py-1.5 flex items-start gap-2 hover:bg-ink-100 rounded-lg px-2 transition"
-      >
-        <span className="text-ink-800/40 mt-0.5 w-6 text-right tabular-nums text-sm">{node.number}</span>
-        <span className={depth === 0 ? 'font-serif font-medium' : ''}>{node.title}</span>
-        {hasChildren && (
-          <span className="ml-auto text-ink-800/40 text-xs">{effectivelyOpen ? '▾' : '▸'}</span>
-        )}
-      </button>
-      {effectivelyOpen && contentOn && node.content && (
-        <div className="ml-8 my-2 p-3 rounded-lg bg-ink-50 border border-ink-100 text-sm prose-tema whitespace-pre-wrap">
-          {node.content.length > 1200 ? node.content.slice(0, 1200) + '…' : node.content}
-        </div>
-      )}
-      {effectivelyOpen && hasChildren && (
-        <div className="ml-6 border-l border-ink-100 pl-2 space-y-1">
-          {node.children.map((c) => (
-            <Node key={c.id} node={c} depth={depth + 1} expandAll={expandAll} contentOn={contentOn} />
-          ))}
-        </div>
-      )}
+    <div className="bg-white border border-ink-200 rounded-[22px] overflow-hidden">
+      {tree.map((n, i) => {
+        const isOpen = open[n.id] ?? false;
+        return (
+          <div key={n.id} className={i > 0 ? 'border-t border-ink-200' : ''}>
+            <button onClick={() => toggle(n.id)} className="w-full text-left flex items-center gap-5 py-5 px-5 hover:bg-ink-100 transition-colors">
+              <span className="font-serif text-[30px] text-brand-500 w-[52px] flex-none">{n.number}</span>
+              <span className="flex-1 min-w-0">
+                <span className="block text-[18px] font-semibold leading-tight">{n.title}</span>
+                <span className="block text-[13px] text-ink-500 mt-1">{n.children.length} apartados</span>
+              </span>
+              <span className="text-[22px] text-ink-500 font-serif">{isOpen ? '−' : '+'}</span>
+            </button>
+            {isOpen && n.children.length > 0 && (
+              <div className="pl-[88px] pr-6 pb-5 border-l-[2px] border-ink-200 ml-[52px] space-y-[6px]">
+                {n.children.map((c) => (
+                  <div key={c.id} className="flex items-baseline gap-3 py-2">
+                    <span className="font-semibold text-brand-600 text-[14px] w-[48px] flex-none tabular-nums">{c.number}</span>
+                    <span className="flex-1 min-w-0">
+                      <span className="block text-[16px] text-ink-900">{c.title}</span>
+                      {c.content && c.content.length > 0 && (
+                        <span className="block text-[14px] text-ink-500 mt-1 line-clamp-2">{c.content.slice(0, 200)}{c.content.length > 200 ? '…' : ''}</span>
+                      )}
+                    </span>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+        );
+      })}
     </div>
   );
 }

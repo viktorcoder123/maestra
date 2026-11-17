@@ -1,123 +1,122 @@
 'use client';
 import { useMemo, useState } from 'react';
+import { geoNaturalEarth1, geoMercator, geoPath } from 'd3-geo';
+import { feature } from 'topojson-client';
 import { sfx } from '@/lib/sfx';
-import { registerAnswer, bumpCounter, type Achievement } from '@/lib/game-state';
-import { GameHUD } from '@/components/GameHUD';
+import { registerAnswer, bumpCounter } from '@/lib/game-state';
 
 type P = { id: string; nombre: string; pais: string; metodo: string; anios: string };
 
-// Rough map positions (percent coordinates on the SVG viewBox)
-const COUNTRIES = [
-  { id: 'Suiza',           label: 'Suiza',           x: 50, y: 50 },
-  { id: 'Hungría',         label: 'Hungría',         x: 55, y: 48 },
-  { id: 'Alemania',        label: 'Alemania',        x: 51, y: 42 },
-  { id: 'Bélgica',         label: 'Bélgica',         x: 47, y: 40 },
-  { id: 'Bélgica/Suiza',   label: 'Bélgica/Suiza',   x: 48, y: 45 },
-  { id: 'Francia',         label: 'Francia',         x: 45, y: 46 },
-  { id: 'Estados Unidos',  label: 'EE. UU.',         x: 15, y: 46 },
-  { id: 'Japón',           label: 'Japón',           x: 86, y: 48 },
-  { id: 'España',          label: 'España',          x: 42, y: 52 },
-  { id: 'Italia',          label: 'Italia',          x: 52, y: 54 },
-  { id: 'Canadá',          label: 'Canadá',          x: 18, y: 32 },
-  { id: 'Argentina',       label: 'Argentina',       x: 28, y: 82 },
-];
+// ISO numeric ids
+const ISO: Record<string, number[]> = {
+  'Suiza': [756], 'Hungría': [348], 'Alemania': [276], 'Bélgica': [56], 'Bélgica/Suiza': [56, 756],
+  'Francia': [250], 'Estados Unidos': [840], 'Japón': [392], 'España': [724],
+  'Italia': [380], 'Canadá': [124], 'Argentina': [32],
+};
 
 function pick<T>(arr: T[]): T { return arr[Math.floor(Math.random() * arr.length)]; }
 
-export function MapaClient({ pedagogos }: { pedagogos: P[] }) {
-  const [combo, setCombo] = useState(0);
-  const [xpGained, setXpGained] = useState<number | undefined>();
-  const [newAch, setNewAch] = useState<Achievement[] | undefined>();
-  const [score, setScore] = useState({ good: 0, bad: 0 });
-  const [attempts, setAttempts] = useState(0);
-  const [picked, setPicked] = useState<string | null>(null);
+export function MapaClient({ pedagogos, world }: { pedagogos: P[]; world: any }) {
+  const countries: any = useMemo(() => feature(world, world.objects.countries), [world]);
   const [current, setCurrent] = useState<P>(() => pick(pedagogos));
+  const [attempts, setAttempts] = useState(0);
+  const [picked, setPicked] = useState<number | null>(null);
+  const [combo, setCombo] = useState(0);
+  const [score, setScore] = useState({ good: 0, bad: 0 });
 
-  function nextRound() {
-    const next = pick(pedagogos.filter((p) => p.id !== current.id));
-    setCurrent(next);
-    setPicked(null); setAttempts(0);
+  const correctIds = ISO[current.pais] ?? [];
+
+  function next() {
+    const n = pick(pedagogos.filter((p) => p.id !== current.id));
+    setCurrent(n); setPicked(null); setAttempts(0);
   }
 
-  function choose(cid: string) {
-    if (picked) return;
-    const correct = cid === current.pais;
-    setPicked(cid);
+  function choose(id: number) {
+    if (picked !== null) return;
+    const correct = correctIds.includes(id);
+    setPicked(id);
     if (correct) {
-      const res = registerAnswer('mapa', true, attempts === 0 ? 15 : 7, combo);
+      const base = attempts === 0 ? 15 : 7;
+      const res = registerAnswer('mapa', true, base, combo);
       setCombo(res.newCombo);
-      setXpGained(res.xpGained);
-      setNewAch(res.newAchievements);
       setScore((s) => ({ ...s, good: s.good + 1 }));
       sfx.correct();
       if (res.newCombo >= 3) sfx.combo(res.newCombo);
-      const counterAch = bumpCounter('mapa_hits');
-      if (counterAch.length) setNewAch(counterAch);
-      setTimeout(nextRound, 1400);
+      bumpCounter('mapa_hits');
+      setTimeout(next, 1200);
+    } else if (attempts >= 1) {
+      const res = registerAnswer('mapa', false, 0, combo);
+      setCombo(res.newCombo);
+      setScore((s) => ({ ...s, bad: s.bad + 1 }));
+      sfx.wrong();
+      setTimeout(next, 1600);
     } else {
-      if (attempts >= 1) {
-        const res = registerAnswer('mapa', false, 0, combo);
-        setCombo(res.newCombo);
-        setScore((s) => ({ ...s, bad: s.bad + 1 }));
-        sfx.wrong();
-        setTimeout(nextRound, 1800);
-      } else {
-        sfx.wrong();
-        setAttempts(1);
-        setTimeout(() => setPicked(null), 600);
-      }
+      sfx.wrong();
+      setAttempts(1);
+      setTimeout(() => setPicked(null), 500);
     }
   }
 
   return (
     <div>
-      <GameHUD combo={combo} xpGained={xpGained} achievements={newAch} />
-
-      <div className="flex items-center justify-between mb-4">
+      <div className="bg-stage text-ink-50 rounded-t-3xl p-6 flex items-end justify-between gap-4 flex-wrap">
         <div>
-          <div className="text-xs uppercase text-brand-600">Pedagogo/a</div>
-          <div className="font-serif text-xl">{current.nombre}</div>
-          <div className="text-sm text-ink-800/60">{current.metodo} — {current.anios}</div>
+          <div className="text-[13px] font-semibold uppercase tracking-[.06em] text-brand-400">¿De dónde es?</div>
+          <div className="font-serif text-[clamp(34px,5vw,54px)] leading-none mt-2">{current.nombre}</div>
+          <div className="text-sm text-ink-50/70 mt-2">{current.metodo} · {current.anios}</div>
         </div>
-        <div className="text-sm text-ink-800/60">
-          <span className="text-emerald-600">✓ {score.good}</span> · <span className="text-red-500">✗ {score.bad}</span>
-          {attempts > 0 && <div className="text-xs text-amber-600">2º intento</div>}
+        <div className="text-sm text-ink-50/80">
+          <span className="font-serif text-[36px] leading-none">{score.good}</span> aciertos · <span className="font-serif text-[36px] leading-none">{score.bad}</span> fallos
+          {attempts > 0 && <div className="text-brand-400 text-xs mt-1">Segundo intento</div>}
         </div>
       </div>
 
-      <div className="relative border rounded-2xl bg-sky-50 overflow-hidden" style={{ aspectRatio: '2/1' }}>
-        {/* Simple world silhouette */}
-        <svg viewBox="0 0 100 50" preserveAspectRatio="none" className="absolute inset-0 w-full h-full">
-          {/* Oceans */}
-          <rect width="100" height="50" fill="#dbeafe" />
-          {/* Continents (very rough shapes) */}
-          <path d="M8,15 L28,13 L32,22 L28,35 L20,42 L10,38 Z" fill="#d1fae5" stroke="#86a380" strokeWidth="0.2" />
-          <path d="M22,42 L34,42 L30,82 L26,86 L22,78 L20,56 Z" fill="#d1fae5" stroke="#86a380" strokeWidth="0.2" />
-          <path d="M40,32 L62,30 L64,52 L50,56 L42,52 Z" fill="#d1fae5" stroke="#86a380" strokeWidth="0.2" />
-          <path d="M55,40 L78,28 L85,36 L82,50 L62,52 Z" fill="#d1fae5" stroke="#86a380" strokeWidth="0.2" />
-          <path d="M80,40 L92,42 L95,52 L84,55 Z" fill="#d1fae5" stroke="#86a380" strokeWidth="0.2" />
-          <path d="M55,55 L72,55 L70,70 L58,70 Z" fill="#d1fae5" stroke="#86a380" strokeWidth="0.2" />
-        </svg>
+      <div className="bg-sage-100 rounded-b-3xl p-4 grid gap-4 md:grid-cols-[3fr_2fr]">
+        <MapView projection={geoNaturalEarth1()} countries={countries.features} correctIds={correctIds} picked={picked} onPick={choose} label="Mundo" />
+        <MapView projection={geoMercator().fitExtent([[0,0], [500, 400]], { type: 'FeatureCollection', features: countries.features.filter((f: any) => {
+          const n = Number(f.id); return n !== 10 && n !== 260 && n !== 304 && n !== 334; // drop Antarctica fragments
+        }).filter((f: any) => {
+          // rough Europe-only clip via bbox
+          try {
+            const [x0, y0, x1, y1] = geoPath(geoMercator()).bounds(f) as any;
+            return x1 > -20 && x0 < 60 && y1 > 30 && y0 < 75;
+          } catch { return false; }
+        }) } as any)} countries={countries.features} correctIds={correctIds} picked={picked} onPick={choose} label="Europa" clipEurope />
+      </div>
+    </div>
+  );
+}
 
-        {COUNTRIES.map((c) => {
-          const correct = c.id === current.pais;
-          const isPicked = picked === c.id;
-          const bg = picked
-            ? correct ? 'bg-emerald-500 text-white ring-emerald-200 ring-4' : isPicked ? 'bg-red-500 text-white' : 'bg-white/90 text-ink-800'
-            : 'bg-white/90 text-ink-800 hover:bg-brand-100 hover:scale-110';
+function MapView({ projection, countries, correctIds, picked, onPick, label, clipEurope }: any) {
+  const path = useMemo(() => geoPath(projection), [projection]);
+  // compute viewBox from projection (if fitted) or use defaults
+  const view = clipEurope ? '0 0 500 400' : '0 0 960 500';
+  const proj = useMemo(() => clipEurope ? projection : projection.fitExtent([[0,0], [960, 500]], { type: 'Sphere' }), [projection, clipEurope]);
+  const pathGen = useMemo(() => geoPath(proj), [proj]);
+  const antarctica = 10;
+  return (
+    <div className="relative rounded-2xl bg-sage-100 overflow-hidden">
+      <div className="absolute left-3 top-2 text-[11px] font-semibold uppercase tracking-[.06em] text-sage-700 z-10">{label}</div>
+      <svg viewBox={view} className="w-full h-auto" style={{ aspectRatio: clipEurope ? '5/4' : '96/50' }}>
+        {countries.filter((c: any) => Number(c.id) !== antarctica).map((c: any) => {
+          const id = Number(c.id);
+          const isCorrect = correctIds.includes(id);
+          const isPicked = id === picked;
+          let fill = '#dfe7dc';
+          if (picked !== null) {
+            if (isCorrect) fill = '#4f6a4a';
+            else if (isPicked) fill = '#c8402f';
+          }
           return (
-            <button
-              key={c.id}
-              onClick={() => choose(c.id)}
-              disabled={!!picked}
-              style={{ left: `${c.x}%`, top: `${c.y}%` }}
-              className={`absolute -translate-x-1/2 -translate-y-1/2 px-2 py-1 text-[11px] rounded-md border border-ink-200 shadow-sm transition ${bg}`}
-            >
-              {c.label}
-            </button>
+            <path key={c.id} d={pathGen(c) ?? ''} fill={fill} stroke="#fafaf7" strokeWidth={0.6}
+              onClick={() => onPick(id)}
+              style={{ cursor: picked === null ? 'pointer' : 'default', transition: 'fill .15s' }}
+              onMouseEnter={(e) => { if (picked === null) (e.target as SVGPathElement).setAttribute('fill', '#fde3d4'); }}
+              onMouseLeave={(e) => { if (picked === null) (e.target as SVGPathElement).setAttribute('fill', '#dfe7dc'); }}
+            />
           );
         })}
-      </div>
+      </svg>
     </div>
   );
 }

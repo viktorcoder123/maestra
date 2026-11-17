@@ -1,0 +1,52 @@
+{
+  "questions": [
+    {
+      "text": "¿Qué ley educativa está vigente en España tras modificar la LOE?",
+      "choices": ["LOMLOE (Ley Orgánica 3/2020)", "LOMCE (Ley Orgánica 8/2013)", "LOGSE (1990)", "LOU (2001)"],
+      "answer": "LOMLOE (Ley Orgánica 3/2020)",
+      "after": "LOMLOE introduce las competencias clave y las situaciones de aprendizaje."
+    },
+    {
+      "text": "¿Qué Real Decreto establece las enseñanzas mínimas de Educación Primaria tras la LOMLOE?",
+      "choices": ["RD 157/2022", "RD 126/2014", "RD 1513/2006", "RD 95/2022"],
+      "answer": "RD 157/2022",
+      "after": "RD 157/2022, de 1 de marzo. Música forma parte del área de Educación Artística."
+    },
+    {
+      "text": "¿En qué área curricular se integra la Música en Primaria según el RD 157/2022?",
+      "choices": ["Educación Artística", "Expresión Corporal", "Ciencias de la Expresión", "Área de Lenguajes"],
+      "answer": "Educación Artística",
+      "after": "El área engloba Educación Plástica y Visual + Música y Danza."
+    },
+    {
+      "text": "¿Cómo se organiza el currículo LOMLOE?",
+      "choices": ["Competencias clave y situaciones de aprendizaje", "Estándares de aprendizaje evaluables", "Objetivos y contenidos mínimos", "Unidades programáticas cerradas"],
+      "answer": "Competencias clave y situaciones de aprendizaje",
+      "after": "La LOMCE trabajaba con estándares; la LOMLOE los sustituye por competencias específicas y criterios de evaluación."
+    },
+    {
+      "text": "¿Cuántas competencias clave reconoce la LOMLOE?",
+      "choices": ["Ocho", "Siete", "Nueve", "Cinco"],
+      "answer": "Ocho",
+      "after": "Alineadas con la Recomendación del Consejo de la UE de 22 de mayo de 2018."
+    },
+    {
+      "text": "¿Qué órgano regula los currículos de Educación Primaria en el ámbito autonómico?",
+      "choices": ["Las administraciones educativas de cada CCAA", "El Ministerio de Educación", "El Consejo Escolar del Estado", "La LOE directamente"],
+      "answer": "Las administraciones educativas de cada CCAA",
+      "after": "El Estado fija los mínimos (RD 157/2022); cada CCAA desarrolla el resto."
+    },
+    {
+      "text": "¿Qué documento define «situación de aprendizaje» en la LOMLOE?",
+      "choices": ["El Real Decreto 157/2022", "La Orden ECD/65/2015", "El Marco Español de Cualificaciones", "El Plan Bolonia"],
+      "answer": "El Real Decreto 157/2022",
+      "after": "«Situación de aprendizaje: situaciones y actividades que implican el despliegue por parte del alumnado de actuaciones asociadas a competencias clave y específicas»."
+    },
+    {
+      "text": "¿Qué ley modifica directamente la LOMLOE?",
+      "choices": ["La LOE (Ley Orgánica 2/2006)", "La LOGSE", "La LOCE", "La LGE de 1970"],
+      "answer": "La LOE (Ley Orgánica 2/2006)",
+      "after": "La LOMLOE no sustituye a la LOE: la modifica."
+    }
+  ]
+}

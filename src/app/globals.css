@@ -8,44 +8,48 @@
 
 html, body {
   background: #fafaf7;
-  color: #1a1a1a;
+  color: #171717;
+  -webkit-font-smoothing: antialiased;
 }
 
-.prose-tema {
+body {
+  font-family: var(--font-sans), system-ui, sans-serif;
+}
+
+a { color: #b84a12; }
+a:hover { color: #8c380d; }
+
+button { font-family: inherit; }
+
+.font-serif-balance {
+  font-family: var(--font-serif), Georgia, serif;
+  text-wrap: balance;
+}
+
+.prose-essay {
   font-family: Georgia, 'Times New Roman', serif;
+  font-size: 18px;
   line-height: 1.7;
 }
 
-.prose-tema p + p { margin-top: 0.75em; }
+.prose-essay p + p { margin-top: 0.9em; }
 
-.glass {
-  background: rgba(255,255,255,0.75);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
+.mono-outline {
+  font-family: ui-monospace, Menlo, monospace;
+  font-size: 16px;
+  line-height: 1.6;
 }
 
-.shimmer::before {
-  content: '';
-  position: absolute; inset: 0;
-  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
-  transform: translateX(-100%);
-  animation: shimmer 2s infinite;
-}
-@keyframes shimmer {
-  to { transform: translateX(100%); }
-}
-
-/* Streak flame pulse */
-@keyframes pulse-flame {
-  0%, 100% { transform: scale(1); }
-  50% { transform: scale(1.08); }
-}
-.flame-pulse { animation: pulse-flame 2.4s ease-in-out infinite; }
-
-/* Confetti pop */
-@keyframes pop-in {
-  0% { transform: scale(0.8); opacity: 0; }
-  60% { transform: scale(1.05); opacity: 1; }
+@keyframes pop {
+  0%   { transform: scale(.85); opacity: 0; }
+  60%  { transform: scale(1.04); opacity: 1; }
   100% { transform: scale(1); opacity: 1; }
 }
-.pop-in { animation: pop-in 0.25s ease-out both; }
+@keyframes rise {
+  0%   { transform: translateY(6px); opacity: 0; }
+  20%  { opacity: 1; }
+  100% { transform: translateY(-14px); opacity: 0; }
+}
+
+.anim-pop { animation: pop .22s ease-out both; }
+.anim-rise { animation: rise .9s ease-out forwards; }

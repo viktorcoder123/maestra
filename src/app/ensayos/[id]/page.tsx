@@ -8,37 +8,38 @@ interface Props { params: Promise<{ id: string }>; }
 
 export default async function EssayView({ params }: Props) {
   const { id } = await params;
-  const sb = supabaseAdmin();
-  const { data: essay } = await sb.from('essays').select('*, temas(title, full_title)').eq('id', parseInt(id,10)).maybeSingle();
+  const { data: essay } = await supabaseAdmin().from('essays').select('*, temas(title, full_title)').eq('id', parseInt(id, 10)).maybeSingle();
   if (!essay) notFound();
 
   return (
-    <div className="py-6 space-y-6 max-w-3xl mx-auto">
+    <div className="py-6 max-w-3xl mx-auto space-y-6">
       <div>
-        <Link href="/ensayos" className="text-xs text-ink-800/60 hover:underline">← Mis ensayos</Link>
-        <div className="text-xs uppercase text-brand-600 mt-2">TEMA {essay.tema_id}</div>
-        <h1 className="font-serif text-2xl">{essay.temas?.title}</h1>
-        <div className="text-xs text-ink-800/50 mt-1">
-          Enviado: {new Date(essay.submitted_at).toLocaleString('es-ES')}
-          {essay.feedback_at && <> · Revisado: {new Date(essay.feedback_at).toLocaleString('es-ES')}</>}
+        <Link href="/ensayos" className="inline-flex items-center px-4 py-2 rounded-full border border-ink-200 text-sm text-ink-700 hover:border-ink-900">← Mis ensayos</Link>
+      </div>
+      <div className="flex items-baseline gap-5 flex-wrap">
+        <span className="font-serif text-[88px] text-brand-500 leading-none">{essay.tema_id}</span>
+        <div>
+          <h1 className="font-serif text-[clamp(28px,4vw,40px)] leading-tight">{essay.temas?.title}</h1>
+          <div className="text-[13px] text-ink-500 mt-2">
+            Enviado: {new Date(essay.submitted_at).toLocaleString('es-ES')}
+            {essay.feedback_at && <> · Revisado: {new Date(essay.feedback_at).toLocaleString('es-ES')}</>}
+          </div>
         </div>
       </div>
 
-      <section className="border rounded-2xl bg-white p-6">
-        <div className="text-xs uppercase text-ink-800/50 mb-2">Tu ensayo</div>
-        <div className="prose-tema whitespace-pre-wrap">{essay.body}</div>
+      <section className="bg-white border border-ink-200 rounded-3xl p-7">
+        <div className="text-[12px] uppercase tracking-[.06em] font-semibold text-ink-500 mb-3">Tu ensayo</div>
+        <div className="prose-essay whitespace-pre-wrap">{essay.body}</div>
       </section>
 
       {essay.status === 'reviewed' && essay.feedback ? (
-        <section className="border-2 border-brand-400 rounded-2xl bg-brand-50 p-6">
-          <div className="text-xs uppercase text-brand-700 mb-2 font-semibold">📝 Feedback</div>
-          <div className="prose-tema whitespace-pre-wrap">{essay.feedback}</div>
+        <section className="bg-brand-50 border-[1.5px] border-brand-400 rounded-3xl p-7">
+          <div className="text-[12px] uppercase tracking-[.06em] font-semibold text-brand-700 mb-3">Feedback</div>
+          <div className="prose-essay whitespace-pre-wrap">{essay.feedback}</div>
         </section>
       ) : (
-        <section className="border border-dashed rounded-2xl p-8 text-center text-ink-800/60">
-          <div className="text-3xl mb-2">⏳</div>
-          <div>Esperando feedback…</div>
-          <div className="text-xs mt-1">(el revisor lo verá en /admin)</div>
+        <section className="border-2 border-dashed border-ink-300 rounded-3xl p-10 text-center text-ink-500">
+          Esperando feedback…
         </section>
       )}
     </div>

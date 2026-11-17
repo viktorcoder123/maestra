@@ -1,6 +1,8 @@
 'use client';
 import { useState } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
+import { Pill } from '@/components/Pill';
+import { Button } from '@/components/Button';
 
 type Tema = { id: number; title: string; full_title: string };
 
@@ -12,62 +14,41 @@ export function NuevoEnsayoClient({ temas }: { temas: Tema[] }) {
   const [body, setBody] = useState('');
   const [prompt, setPrompt] = useState('');
   const [submitting, setSubmitting] = useState(false);
-
   const current = temas.find((t) => t.id === temaId);
+  const words = body.trim().split(/\s+/).filter(Boolean).length;
 
   async function submit() {
     setSubmitting(true);
-    const res = await fetch('/api/essays', {
-      method: 'POST', headers: { 'content-type': 'application/json' },
-      body: JSON.stringify({ tema_id: temaId, prompt, body }),
-    });
+    const res = await fetch('/api/essays', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ tema_id: temaId, prompt, body }) });
     const { essay } = await res.json();
     router.push(`/ensayos/${essay.id}`);
   }
 
-  const words = body.trim().split(/\s+/).filter(Boolean).length;
-
   return (
-    <div className="space-y-4">
-      <select
-        value={temaId}
-        onChange={(e) => setTemaId(Number(e.target.value))}
-        className="w-full border rounded-xl px-4 py-3"
-      >
-        {temas.map((t) => (
-          <option key={t.id} value={t.id}>TEMA {t.id} — {t.title}</option>
-        ))}
-      </select>
+    <div className="space-y-5">
+      <div className="flex gap-2 flex-wrap">
+        {temas.map((t) => <Pill key={t.id} selected={temaId === t.id} onClick={() => setTemaId(t.id)}>Tema {t.id}</Pill>)}
+      </div>
 
       {current && (
-        <div className="p-3 bg-ink-50 border rounded-xl text-xs text-ink-800/70">
-          {current.full_title}
-        </div>
+        <>
+          <h1 className="font-serif text-[clamp(32px,4.5vw,44px)] leading-tight font-serif-balance">{current.title}</h1>
+          <p className="text-sm text-ink-500">{current.full_title}</p>
+        </>
       )}
 
-      <input
-        value={prompt}
-        onChange={(e) => setPrompt(e.target.value)}
+      <input value={prompt} onChange={(e) => setPrompt(e.target.value)}
         placeholder="Nota opcional para quien revise (p. ej. 'dudas en 3.2')"
-        className="w-full border rounded-xl px-4 py-2 text-sm"
-      />
+        className="w-full border border-ink-200 rounded-xl px-4 py-[10px] text-sm" />
 
-      <textarea
-        value={body}
-        onChange={(e) => setBody(e.target.value)}
-        placeholder="Desarrolla el tema aquí…"
-        className="w-full h-[500px] p-4 border rounded-xl text-sm prose-tema"
-      />
+      <textarea value={body} onChange={(e) => setBody(e.target.value)} placeholder="Desarrolla el tema aquí…"
+        className="w-full h-[460px] p-5 border border-ink-200 rounded-2xl prose-essay" />
 
       <div className="flex items-center justify-between">
-        <div className="text-xs text-ink-800/60">{words} palabras</div>
-        <button
-          onClick={submit}
-          disabled={submitting || body.length < 50}
-          className="px-5 py-3 rounded-full bg-brand-500 text-white disabled:opacity-40 hover:bg-brand-600"
-        >
+        <div className="text-sm text-ink-500">{words} palabras</div>
+        <Button variant="primary" disabled={submitting || body.length < 50} onClick={submit}>
           {submitting ? 'Enviando…' : 'Enviar para revisión →'}
-        </button>
+        </Button>
       </div>
     </div>
   );

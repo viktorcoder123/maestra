@@ -1,0 +1,14 @@
+{
+  "scenes": [
+    { "pedagogo": "dalcroze",   "text": "La maestra pone música y el alumnado camina libremente cambiando de velocidad y dirección según el tempo y la intensidad que escuchan." },
+    { "pedagogo": "kodaly",     "text": "El alumnado canta una melodía usando «do, re, mi…» con gestos manuales que representan la altura de cada nota." },
+    { "pedagogo": "orff",       "text": "Grupos pequeños repiten un patrón rítmico fijo con xilófonos y metalófonos mientras una voz solista improvisa encima." },
+    { "pedagogo": "willems",    "text": "Antes de cantar, el alumnado escucha una canción construida sobre terceras y la reconoce por el intervalo característico." },
+    { "pedagogo": "suzuki",     "text": "Los padres asisten a clase y repiten en casa los ejercicios con sus hijos, aprendiendo las canciones de oído antes que la lectura." },
+    { "pedagogo": "montessori", "text": "Cada alumno toma dos campanillas y las toca para emparejarlas por su sonido, autocorrigiéndose sin intervención docente." },
+    { "pedagogo": "schafer",    "text": "La clase sale al patio con los ojos cerrados y dibuja un mapa del paisaje sonoro que escucha a su alrededor." },
+    { "pedagogo": "wuytack",    "text": "El profesorado presenta un gráfico coloreado que representa cada frase y timbre de la obra, para seguir la audición activamente." },
+    { "pedagogo": "bapne",      "text": "El grupo marca un ritmo con palmadas, patadas, chasquidos y toques en el pecho, alternando lateralidad derecha-izquierda." },
+    { "pedagogo": "ward",       "text": "El alumnado canta a una sola voz melodías del repertorio gregoriano, nombrando las notas con números del uno al siete." }
+  ]
+}

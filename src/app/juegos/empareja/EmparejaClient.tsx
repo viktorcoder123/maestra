@@ -1,8 +1,9 @@
 'use client';
 import { useMemo, useState } from 'react';
 import { sfx } from '@/lib/sfx';
-import { registerAnswer, type Achievement } from '@/lib/game-state';
-import { GameHUD } from '@/components/GameHUD';
+import { registerAnswer } from '@/lib/game-state';
+import { Button } from '@/components/Button';
+import { Monogram } from '@/components/Monogram';
 
 type P = { id: string; nombre: string; metodo: string; palabras_clave: string[] };
 
@@ -15,20 +16,16 @@ function shuffle<T>(arr: T[]): T[] {
 export function EmparejaClient({ pedagogos }: { pedagogos: P[] }) {
   const [round, setRound] = useState(0);
   const [combo, setCombo] = useState(0);
-  const [xpGained, setXpGained] = useState<number | undefined>();
-  const [newAch, setNewAch] = useState<Achievement[] | undefined>();
   const selection = useMemo(() => shuffle(pedagogos).slice(0, 4), [round, pedagogos]);
   const words = useMemo(() => shuffle(selection.flatMap((p) => p.palabras_clave.slice(0, 2).map((w) => ({ word: w, correct: p.id })))), [selection]);
   const [placed, setPlaced] = useState<Record<string, string>>({});
+  const [selectedChip, setSelectedChip] = useState<string | null>(null);
   const [checked, setChecked] = useState(false);
 
-  function onDragStart(e: React.DragEvent, word: string) {
-    e.dataTransfer.setData('text/plain', word);
-  }
-  function onDrop(e: React.DragEvent, pid: string) {
-    const word = e.dataTransfer.getData('text/plain');
-    setPlaced((p) => ({ ...p, [word]: pid }));
-  }
+  function placeAt(pid: string, word: string) { setPlaced((p) => ({ ...p, [word]: pid })); setSelectedChip(null); }
+  function pickChip(w: string) { if (checked) return; setSelectedChip((s) => s === w ? null : w); }
+  function cardTap(pid: string) { if (checked || !selectedChip) return; placeAt(pid, selectedChip); }
+  function removePlaced(w: string) { if (checked) return; setPlaced((p) => { const n = { ...p }; delete n[w]; return n; }); }
 
   function check() {
     setChecked(true);
@@ -36,62 +33,69 @@ export function EmparejaClient({ pedagogos }: { pedagogos: P[] }) {
     const perfect = correctCount === words.length;
     const res = registerAnswer('empareja', perfect, correctCount * 5, combo);
     setCombo(res.newCombo);
-    setXpGained(res.xpGained);
-    setNewAch(res.newAchievements);
     perfect ? sfx.fanfare() : correctCount > 0 ? sfx.correct() : sfx.wrong();
   }
-  function nextRound() { setChecked(false); setPlaced({}); setRound((r) => r + 1); }
-
+  function nextRound() { setChecked(false); setPlaced({}); setSelectedChip(null); setRound((r) => r + 1); }
+  const trayLeft = words.filter((w) => !placed[w.word]);
   const score = words.filter((w) => placed[w.word] === w.correct).length;
 
   return (
     <div>
-      <GameHUD combo={combo} xpGained={xpGained} achievements={newAch} />
-      <div className="grid md:grid-cols-4 gap-3 mb-6">
+      <div className="grid [grid-template-columns:repeat(auto-fit,minmax(200px,1fr))] gap-3 mb-6">
         {selection.map((p) => (
-          <div key={p.id}
+          <button
+            key={p.id}
+            onClick={() => cardTap(p.id)}
             onDragOver={(e) => e.preventDefault()}
-            onDrop={(e) => onDrop(e, p.id)}
-            className="border-2 border-dashed rounded-2xl p-4 min-h-[140px] bg-white"
+            onDrop={(e) => { e.preventDefault(); const w = e.dataTransfer.getData('text/plain'); placeAt(p.id, w); }}
+            className={`text-left bg-white rounded-2xl p-4 min-h-[190px] flex flex-col gap-3 border-2 transition-colors
+              ${selectedChip ? 'border-dashed border-brand-500' : 'border-ink-200'}`}
           >
-            <div className="font-serif font-medium">{p.nombre.split(' ').slice(-2).join(' ')}</div>
-            <div className="text-xs text-ink-800/60 mb-2">{p.metodo}</div>
-            <div className="flex flex-wrap gap-1">
+            <div className="flex items-center gap-3">
+              <Monogram name={p.nombre} size={36} />
+              <div>
+                <div className="font-serif text-[18px] leading-tight">{p.nombre.split(' ').slice(-2).join(' ')}</div>
+                <div className="text-[12px] text-ink-500 uppercase tracking-[.06em]">{p.metodo}</div>
+              </div>
+            </div>
+            <div className="flex flex-wrap gap-[6px]">
               {Object.entries(placed).filter(([, pid]) => pid === p.id).map(([w]) => {
                 const correct = words.find((x) => x.word === w)?.correct === p.id;
+                const cls = checked
+                  ? correct ? 'bg-sage-600 text-white' : 'bg-bad text-white'
+                  : 'bg-ink-100 hover:bg-ink-200';
                 return (
-                  <span key={w} className={`px-2 py-1 text-xs rounded-lg ${checked ? (correct ? 'bg-emerald-100 text-emerald-800' : 'bg-red-100 text-red-800') : 'bg-ink-100'}`}>
+                  <span key={w} onClick={(e) => { e.stopPropagation(); removePlaced(w); }}
+                    className={`px-[10px] py-1 text-[13px] rounded-lg ${cls} ${!checked ? 'cursor-pointer' : ''}`}>
                     {w}
                   </span>
                 );
               })}
             </div>
-          </div>
+          </button>
         ))}
       </div>
-
-      <div className="flex flex-wrap gap-2 p-4 border rounded-2xl bg-ink-50">
-        {words.filter((w) => !placed[w.word]).map((w) => (
-          <span
-            key={w.word}
+      <div className="flex flex-wrap gap-2 p-4 border border-ink-200 rounded-2xl bg-ink-100 min-h-[70px]">
+        {trayLeft.length > 0 ? trayLeft.map((w) => (
+          <span key={w.word}
             draggable
-            onDragStart={(e) => onDragStart(e, w.word)}
-            className="px-3 py-1.5 rounded-lg bg-white border cursor-move hover:border-brand-400 text-sm"
+            onDragStart={(e) => e.dataTransfer.setData('text/plain', w.word)}
+            onClick={() => pickChip(w.word)}
+            className={`px-[12px] py-[8px] rounded-lg bg-white border cursor-pointer text-[14px] font-medium transition-transform
+              ${selectedChip === w.word ? 'border-brand-500 -translate-y-[3px] shadow-tile' : 'border-ink-200 hover:border-ink-900'}`}
           >{w.word}</span>
-        ))}
-        {words.filter((w) => !placed[w.word]).length === 0 && (
-          <div className="text-ink-800/50 text-sm">Todas colocadas.</div>
-        )}
-      </div>
-
-      <div className="mt-6 flex items-center gap-3">
-        {!checked ? (
-          <button onClick={check} className="px-5 py-3 rounded-full bg-brand-500 text-white hover:bg-brand-600">Comprobar</button>
-        ) : (
-          <>
-            <div className="text-sm">Acierto: <strong>{score}/{words.length}</strong></div>
-            <button onClick={nextRound} className="px-5 py-3 rounded-full bg-ink-900 text-white hover:bg-ink-800">Otra ronda →</button>
-          </>
+        )) : (
+          <div className="flex items-center justify-between w-full gap-3">
+            {!checked
+              ? <>
+                  <span className="text-ink-500 text-sm">Todas colocadas.</span>
+                  <Button variant="primary" onClick={check}>Comprobar</Button>
+                </>
+              : <>
+                  <span className="text-sm">Acierto: <strong>{score}/{words.length}</strong></span>
+                  <Button variant="dark" onClick={nextRound}>Otra ronda →</Button>
+                </>}
+          </div>
         )}
       </div>
     </div>
