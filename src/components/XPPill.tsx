@@ -41,7 +41,7 @@ export function XPPill() {
         </span>
         <span className="flex flex-col gap-1">
           <span className="text-[12px] font-semibold leading-none tabular-nums">{gs.xp} XP</span>
-          <span className="block w-[84px] h-1 rounded-full bg-ink-100 overflow-hidden">
+          <span className="hidden sm:block w-[84px] h-1 rounded-full bg-ink-100 overflow-hidden">
             <span className="block h-full bg-brand-500 rounded-full transition-[width] duration-500" style={{ width: `${lv.progress * 100}%` }} />
           </span>
         </span>

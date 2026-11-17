@@ -20,9 +20,12 @@ export function AppHeader() {
   const pathname = usePathname() ?? '/';
   return (
     <header className="sticky top-0 z-20 bg-ink-50/90 backdrop-blur border-b border-ink-200">
-      <div className="max-w-container mx-auto px-5 py-3 flex items-center gap-4 flex-wrap">
+      <div className="max-w-container mx-auto px-4 sm:px-5 py-3 flex items-center gap-3 sm:gap-4 flex-wrap">
         <Logo />
-        <nav className="flex gap-[2px] flex-1 min-w-0 overflow-x-auto order-3 md:order-none basis-full md:basis-auto no-scrollbar">
+        <div className="ml-auto">
+          <XPPill />
+        </div>
+        <nav className="flex gap-[2px] basis-full min-w-0 overflow-x-auto no-scrollbar -mx-4 px-4 sm:mx-0 sm:px-0">
           {NAV.map((n) => {
             const active = n.match(pathname);
             return (
@@ -30,7 +33,7 @@ export function AppHeader() {
                 key={n.href}
                 href={n.href}
                 className={clsx(
-                  'flex-none px-[11px] py-2 rounded-full text-[14px] font-medium transition-colors',
+                  'flex-none px-[11px] py-2 rounded-full text-[14px] font-medium transition-colors whitespace-nowrap',
                   active ? 'bg-ink-900 text-ink-50' : 'text-ink-700 hover:bg-ink-100',
                 )}
               >
@@ -39,9 +42,6 @@ export function AppHeader() {
             );
           })}
         </nav>
-        <div className="ml-auto">
-          <XPPill />
-        </div>
       </div>
     </header>
   );

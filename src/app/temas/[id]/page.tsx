@@ -22,10 +22,10 @@ export default async function TemaPage({ params }: Props) {
       <div>
         <Link href="/temas" className="inline-flex items-center px-4 py-2 rounded-full border border-ink-200 text-sm text-ink-700 hover:border-ink-900">← Temario</Link>
       </div>
-      <div className="flex items-baseline gap-6 flex-wrap">
-        <span className="font-serif text-[120px] text-brand-500 leading-none">{tema.number}</span>
+      <div className="flex items-baseline gap-4 sm:gap-6 flex-wrap">
+        <span className="font-serif text-[clamp(72px,16vw,120px)] text-brand-500 leading-none">{tema.number}</span>
         <div className="flex-1 min-w-0">
-          <h1 className="font-serif text-[clamp(32px,5vw,48px)] leading-[1.05] font-serif-balance">{tema.title}</h1>
+          <h1 className="font-serif text-[clamp(28px,5vw,48px)] leading-[1.05] font-serif-balance">{tema.title}</h1>
           <p className="text-sm text-ink-500 mt-2">{tema.full_title}</p>
         </div>
       </div>

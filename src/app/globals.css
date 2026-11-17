@@ -53,3 +53,12 @@ button { font-family: inherit; }
 
 .anim-pop { animation: pop .22s ease-out both; }
 .anim-rise { animation: rise .9s ease-out forwards; }
+
+.no-scrollbar::-webkit-scrollbar { display: none; }
+.no-scrollbar { scrollbar-width: none; }
+
+/* Keep interactive surfaces crisp on touch */
+button, a { touch-action: manipulation; -webkit-tap-highlight-color: transparent; }
+
+/* Prevent horizontal page overflow on narrow viewports */
+html { overflow-x: hidden; }

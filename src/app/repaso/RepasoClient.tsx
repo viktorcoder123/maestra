@@ -87,10 +87,10 @@ export function RepasoClient() {
       </div>
       <ProgressDots states={states} />
 
-      <div className="relative mt-6">
-        <div className="absolute inset-0 rounded-3xl bg-ink-200 translate-x-[8px] translate-y-[8px]" />
-        <div className="absolute inset-0 rounded-3xl bg-ink-100 translate-x-[4px] translate-y-[4px]" />
-        <div className="relative bg-white rounded-3xl border border-ink-200 p-6 md:p-8 min-h-[300px] flex flex-col">
+      <div className="relative mt-6 mb-2">
+        <div className="hidden sm:block absolute inset-0 rounded-3xl bg-ink-200 translate-x-[8px] translate-y-[8px]" />
+        <div className="hidden sm:block absolute inset-0 rounded-3xl bg-ink-100 translate-x-[4px] translate-y-[4px]" />
+        <div className="relative bg-white rounded-3xl border border-ink-200 p-5 md:p-8 min-h-[280px] flex flex-col">
           <div className="text-[12px] font-semibold uppercase tracking-[.06em] text-brand-600 mb-3">
             Tema {current.tema_id} · {current.type.replace('_', ' ')}
           </div>
@@ -108,11 +108,11 @@ export function RepasoClient() {
           Mostrar respuesta · espacio
         </Button>
       ) : (
-        <div className="mt-5 grid grid-cols-4 gap-2 text-sm font-semibold">
-          <button onClick={() => rate(0)} className="py-3 rounded-2xl bg-bad text-white hover:opacity-90">Otra vez<span className="block text-[11px] opacity-80">tecla 1</span></button>
-          <button onClick={() => rate(1)} className="py-3 rounded-2xl bg-brand-400 text-white hover:opacity-90">Costó<span className="block text-[11px] opacity-80">tecla 2</span></button>
-          <button onClick={() => rate(2)} className="py-3 rounded-2xl bg-sage-600 text-white hover:opacity-90">Bien<span className="block text-[11px] opacity-80">tecla 3</span></button>
-          <button onClick={() => rate(3)} className="py-3 rounded-2xl bg-ink-900 text-ink-50 hover:bg-ink-700">Fácil<span className="block text-[11px] opacity-80">tecla 4</span></button>
+        <div className="mt-5 grid grid-cols-2 sm:grid-cols-4 gap-2 text-sm font-semibold">
+          <button onClick={() => rate(0)} className="py-3 rounded-2xl bg-bad text-white hover:opacity-90">Otra vez<span className="hidden sm:block text-[11px] opacity-80">tecla 1</span></button>
+          <button onClick={() => rate(1)} className="py-3 rounded-2xl bg-brand-400 text-white hover:opacity-90">Costó<span className="hidden sm:block text-[11px] opacity-80">tecla 2</span></button>
+          <button onClick={() => rate(2)} className="py-3 rounded-2xl bg-sage-600 text-white hover:opacity-90">Bien<span className="hidden sm:block text-[11px] opacity-80">tecla 3</span></button>
+          <button onClick={() => rate(3)} className="py-3 rounded-2xl bg-ink-900 text-ink-50 hover:bg-ink-700">Fácil<span className="hidden sm:block text-[11px] opacity-80">tecla 4</span></button>
         </div>
       )}
     </div>

@@ -90,7 +90,7 @@ export default async function Home() {
   return (
     <div className="space-y-11">
       <section className="grid [grid-template-columns:repeat(auto-fit,minmax(300px,1fr))] gap-5 items-stretch">
-        <div className="bg-ink-900 text-ink-50 rounded-3xl p-9 flex flex-col gap-[18px] relative overflow-hidden min-h-[280px]">
+        <div className="bg-ink-900 text-ink-50 rounded-3xl p-6 sm:p-9 flex flex-col gap-[18px] relative overflow-hidden min-h-[240px] sm:min-h-[280px]">
           <div className="absolute inset-x-0 bottom-11 flex flex-col gap-[14px] opacity-[.14]">
             {Array.from({ length: 5 }).map((_, i) => <span key={i} className="h-px bg-ink-50" />)}
           </div>

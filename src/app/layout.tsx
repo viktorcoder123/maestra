@@ -15,9 +15,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="es" className={`${serif.variable} ${sans.variable}`}>
       <body className="min-h-screen antialiased">
-        <style>{`.no-scrollbar::-webkit-scrollbar{display:none}.no-scrollbar{scrollbar-width:none}`}</style>
         <AppHeader />
-        <main className="w-full max-w-container mx-auto px-5 pt-7 pb-20">{children}</main>
+        <main className="w-full max-w-container mx-auto px-4 sm:px-5 pt-5 sm:pt-7 pb-20">{children}</main>
       </body>
     </html>
   );

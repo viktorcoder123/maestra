@@ -62,7 +62,7 @@ export default function Juegos() {
 function Tile({ href, tag, title, desc, children }: { href: string; tag: string; title: string; desc: string; children: React.ReactNode }) {
   return (
     <Link href={href} className="flex flex-col justify-start border border-ink-200 bg-white rounded-[22px] overflow-hidden text-ink-900 transition-transform duration-150 hover:-translate-y-[3px] hover:shadow-tile">
-      <div className="h-[180px] relative overflow-hidden">{children}</div>
+      <div className="h-[clamp(140px,34vw,180px)] relative overflow-hidden">{children}</div>
       <div className="p-5 pt-[18px]">
         <div className="text-[12px] font-semibold uppercase tracking-[.06em] text-brand-600">{tag}</div>
         <div className="font-serif text-[28px] leading-[1.1] mt-1 mb-[6px]">{title}</div>

@@ -71,7 +71,7 @@ export function MapaClient({ pedagogos, world }: { pedagogos: P[]; world: any })
         </div>
       </div>
 
-      <div className="bg-sage-100 rounded-b-3xl p-4 grid gap-4 md:grid-cols-[3fr_2fr]">
+      <div className="bg-sage-100 rounded-b-3xl p-3 sm:p-4 grid gap-3 sm:gap-4 md:grid-cols-[3fr_2fr]">
         <MapView projection={geoNaturalEarth1()} countries={countries.features} correctIds={correctIds} picked={picked} onPick={choose} label="Mundo" />
         <MapView projection={geoMercator().fitExtent([[0,0], [500, 400]], { type: 'FeatureCollection', features: countries.features.filter((f: any) => {
           const n = Number(f.id); return n !== 10 && n !== 260 && n !== 304 && n !== 334; // drop Antarctica fragments
@@ -108,9 +108,9 @@ function MapView({ projection, countries, correctIds, picked, onPick, label, cli
             else if (isPicked) fill = '#c8402f';
           }
           return (
-            <path key={c.id} d={pathGen(c) ?? ''} fill={fill} stroke="#fafaf7" strokeWidth={0.6}
+            <path key={c.id} d={pathGen(c) ?? ''} fill={fill} stroke="#fafaf7" strokeWidth={0.8} vectorEffect="non-scaling-stroke"
               onClick={() => onPick(id)}
-              style={{ cursor: picked === null ? 'pointer' : 'default', transition: 'fill .15s' }}
+              style={{ cursor: picked === null ? 'pointer' : 'default', transition: 'fill .15s', touchAction: 'manipulation' }}
               onMouseEnter={(e) => { if (picked === null) (e.target as SVGPathElement).setAttribute('fill', '#fde3d4'); }}
               onMouseLeave={(e) => { if (picked === null) (e.target as SVGPathElement).setAttribute('fill', '#dfe7dc'); }}
             />

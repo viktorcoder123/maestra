@@ -72,13 +72,13 @@ export function SimuladorClient({ temas }: { temas: Tema[] }) {
 
   return (
     <div>
-      <div className="sticky top-[57px] z-10 bg-ink-900 text-ink-50 rounded-3xl p-6 mb-5">
-        <div className="flex items-center justify-between gap-4 flex-wrap">
-          <div>
+      <div className="sticky top-2 z-10 bg-ink-900 text-ink-50 rounded-3xl p-4 sm:p-6 mb-5">
+        <div className="flex items-center justify-between gap-3 sm:gap-4 flex-wrap">
+          <div className="min-w-0 flex-1">
             <div className="text-[12px] font-semibold uppercase tracking-[.06em] text-brand-400">TEMA {tema!.id} · {phase === 'outline' ? 'Esquema' : 'Desarrollo'}</div>
-            <div className="font-serif text-[22px] mt-1">{tema!.title}</div>
+            <div className="font-serif text-[clamp(16px,2.6vw,22px)] mt-1 leading-tight truncate">{tema!.title}</div>
           </div>
-          <div className={`font-serif text-[56px] leading-none tabular-nums ${remain < 60 ? 'text-bad-dark' : ''}`}>{fmt(remain)}</div>
+          <div className={`font-serif text-[clamp(36px,8vw,56px)] leading-none tabular-nums ${remain < 60 ? 'text-bad-dark' : ''}`}>{fmt(remain)}</div>
         </div>
         <div className="h-[5px] rounded-full bg-ink-50/20 overflow-hidden mt-4">
           <div className={`h-full ${remain < 60 ? 'bg-bad-dark' : 'bg-brand-500'} rounded-full`} style={{ width: `${pct * 100}%`, transition: 'width .5s linear' }} />
