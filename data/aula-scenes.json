@@ -1,14 +1,76 @@
 {
   "scenes": [
-    { "pedagogo": "dalcroze",   "text": "La maestra pone música y el alumnado camina libremente cambiando de velocidad y dirección según el tempo y la intensidad que escuchan." },
-    { "pedagogo": "kodaly",     "text": "El alumnado canta una melodía usando «do, re, mi…» con gestos manuales que representan la altura de cada nota." },
-    { "pedagogo": "orff",       "text": "Grupos pequeños repiten un patrón rítmico fijo con xilófonos y metalófonos mientras una voz solista improvisa encima." },
-    { "pedagogo": "willems",    "text": "Antes de cantar, el alumnado escucha una canción construida sobre terceras y la reconoce por el intervalo característico." },
-    { "pedagogo": "suzuki",     "text": "Los padres asisten a clase y repiten en casa los ejercicios con sus hijos, aprendiendo las canciones de oído antes que la lectura." },
-    { "pedagogo": "montessori", "text": "Cada alumno toma dos campanillas y las toca para emparejarlas por su sonido, autocorrigiéndose sin intervención docente." },
-    { "pedagogo": "schafer",    "text": "La clase sale al patio con los ojos cerrados y dibuja un mapa del paisaje sonoro que escucha a su alrededor." },
-    { "pedagogo": "wuytack",    "text": "El profesorado presenta un gráfico coloreado que representa cada frase y timbre de la obra, para seguir la audición activamente." },
-    { "pedagogo": "bapne",      "text": "El grupo marca un ritmo con palmadas, patadas, chasquidos y toques en el pecho, alternando lateralidad derecha-izquierda." },
-    { "pedagogo": "ward",       "text": "El alumnado canta a una sola voz melodías del repertorio gregoriano, nombrando las notas con números del uno al siete." }
+    {
+      "pedagogo": "dalcroze",
+      "text": "La maestra toca al piano y el alumnado se desplaza por el aula: cuando suenan negras, marchan; cuando suenan corcheas, corren; cuando aparece una corchea con puntillo y semicorchea, saltan. Al detenerse la música, se detienen en seco para interiorizar el silencio."
+    },
+    {
+      "pedagogo": "kodaly",
+      "text": "El alumnado canta con la sílaba «do, re, mi» y la maestra marca cada nota con la mano a distinta altura respecto al cuerpo. Después aplican sílabas rítmicas sobre canciones del folclore español."
+    },
+    {
+      "pedagogo": "orff",
+      "text": "La clase parte de un refrán popular: primero lo recitan, después lo trasladan al cuerpo con palmas, pies y chasquidos, y por último lo tocan en xilófonos y metalófonos añadiendo un ostinato y un bordón."
+    },
+    {
+      "pedagogo": "willems",
+      "text": "La maestra prepara una canción construida sobre terceras y séptimas para que el alumnado reconozca los intervalos de oído antes de verlos escritos; la audición es el punto de partida de todo el trabajo."
+    },
+    {
+      "pedagogo": "martenot",
+      "text": "La sesión alterna momentos muy breves de esfuerzo intenso con juegos de silencio y relajación. El alumnado entona una melodía primero con la sílaba «nu», sin notación, imitando a la maestra."
+    },
+    {
+      "pedagogo": "ward",
+      "text": "La clase es de formación vocal: afinación, respiración y entonación con fononimia. El repertorio es canto gregoriano a una sola voz y las notas de la escala se designan con números del uno al siete."
+    },
+    {
+      "pedagogo": "suzuki",
+      "text": "Las familias asisten al aula, toman notas y continúan en casa. El alumnado, de tres o cuatro años, aprende de oído pequeños motivos rítmicos sobre las cuerdas 1.ª y 2.ª al aire del violín, antes de leer partitura."
+    },
+    {
+      "pedagogo": "elizalde",
+      "text": "La maestra trabaja el cancionero tradicional español: canciones populares a una voz, flauta dulce y fononimia. La altura de las notas se marca con la mano, elevándose desde el diafragma hasta por encima de la cabeza."
+    },
+    {
+      "pedagogo": "montessori",
+      "text": "En una sesión adaptada a alumnado con discapacidad visual, cada niño toca dos campanillas y las empareja por el sonido, autocorrigiéndose sin intervención docente. Se trabajan sentido auditivo, sentido rítmico y autoestima."
+    },
+    {
+      "pedagogo": "chevais",
+      "text": "La maestra marca el ritmo con gestos precisos de la mano y los dedos, y el alumnado lo reproduce. Reconocen los sonidos a través del gesto antes de representarlos en el pentagrama."
+    },
+    {
+      "pedagogo": "schafer",
+      "text": "El grupo sale al patio con los ojos cerrados y escucha durante cinco minutos. Después hacen una lista de los sonidos del entorno y los clasifican por timbre y carácter: el paisaje sonoro como punto de partida de la creación."
+    },
+    {
+      "pedagogo": "wuytack",
+      "text": "La maestra proyecta un gráfico con formas y colores que representa cada frase, timbre y textura de una obra. El alumnado sigue la audición señalando el musicograma, participando de forma activa en la escucha."
+    },
+    {
+      "pedagogo": "bapne",
+      "text": "La clase marca un patrón rítmico con palmadas, patadas, chasquidos y toques en el pecho, alternando lateralidad derecha-izquierda y trabajando atención y memoria a través de la percusión corporal con base neurocientífica."
+    },
+    {
+      "pedagogo": "orff",
+      "text": "El alumnado trabaja un rondó: la sección A se interpreta a toda la clase con instrumentos de pequeña percusión mientras las B y C son improvisaciones de dos solistas, partiendo siempre del intervalo de tercera menor."
+    },
+    {
+      "pedagogo": "dalcroze",
+      "text": "La maestra toca una pieza y el grupo la vive moviendo el cuerpo libremente por el espacio. Después vuelven a escucharla sentados con los ojos cerrados: el sentido muscular ha preparado la audición."
+    },
+    {
+      "pedagogo": "kodaly",
+      "text": "El alumnado canta la misma melodía en varias tonalidades distintas haciendo transporte a primera vista con el solfeo relativo, siempre con el «do» como tónica móvil."
+    },
+    {
+      "pedagogo": "willems",
+      "text": "La sesión comienza con desarrollo sensorial auditivo —reconocer ruidos del entorno— y continúa con canciones que preparan para la práctica instrumental. La audición organiza toda la secuencia."
+    },
+    {
+      "pedagogo": "suzuki",
+      "text": "Dos veces al mes el aula se reúne con otro grupo de distinto nivel para interpretar juntos: los más avanzados ayudan a los menos adelantados y se refuerza la cohesión y la camaradería."
+    }
   ]
 }

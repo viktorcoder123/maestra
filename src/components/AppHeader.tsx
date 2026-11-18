@@ -9,6 +9,7 @@ const NAV = [
   { href: '/',             label: 'Inicio',         match: (p: string) => p === '/' },
   { href: '/temas',        label: 'Temario',        match: (p: string) => p === '/temas' || p.startsWith('/temas/') },
   { href: '/repaso',       label: 'Repaso',         match: (p: string) => p.startsWith('/repaso') },
+  { href: '/memoria',      label: 'Memoria',        match: (p: string) => p.startsWith('/memoria') },
   { href: '/simulador',    label: 'Simulador',      match: (p: string) => p.startsWith('/simulador') },
   { href: '/juegos',       label: 'Juegos',         match: (p: string) => p.startsWith('/juegos') },
   { href: '/oido',         label: 'Oído',           match: (p: string) => p.startsWith('/oido') },

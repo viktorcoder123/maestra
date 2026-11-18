@@ -113,6 +113,17 @@ create table kv (
   value  text not null
 );
 
+-- ---------- Memoria (section persistence) ----------
+create table memory_artifacts (
+  id          bigint generated always as identity primary key,
+  kind        text not null check (kind in ('palacio','canta','frase','mapa')),
+  tema_id     int references temas(id),
+  list_key    text,
+  data        jsonb not null,
+  updated_at  timestamptz not null default now(),
+  unique (kind, tema_id, list_key)
+);
+
 -- ---------- RLS ----------
 -- Single-user app. Publishable key is used client-side; we lock reads/writes
 -- to require that key via the "anon" role, and allow service role for ingestion.
@@ -125,6 +136,7 @@ alter table simulator_runs   enable row level security;
 alter table essays           enable row level security;
 alter table activity_log     enable row level security;
 alter table kv               enable row level security;
+alter table memory_artifacts enable row level security;
 
 -- Permissive single-user policies (you're the only user; no auth layer).
 -- If you later share the app, replace with proper per-user policies.
@@ -132,7 +144,7 @@ do $$ declare t text;
 begin
   for t in select unnest(array[
     'temas','sections','cards','card_state','reviews',
-    'simulator_runs','essays','activity_log','kv'
+    'simulator_runs','essays','activity_log','kv','memory_artifacts'
   ]) loop
     execute format('drop policy if exists anon_all on %I;', t);
     execute format('create policy anon_all on %I for all to anon using (true) with check (true);', t);
